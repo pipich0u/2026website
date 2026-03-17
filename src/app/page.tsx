@@ -45,6 +45,13 @@ const cardData = [
     title: "Cappadocia - Turkey",
     subtitle: "Göreme Valley",
   },
+  {
+    id: 7,
+    image: "/assets/images/large/serengeti-2000w",
+    background: "/assets/images/small/serengeti",
+    title: "Serengeti - Tanzania",
+    subtitle: "African Savanna",
+  },
 ];
 
 // Card dimensions
