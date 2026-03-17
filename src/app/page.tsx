@@ -761,10 +761,9 @@ export default function HomePage() {
           padding: 0 2.5em 0 5em;
           width: 100%;
         }
-        @media (max-width: 30em) {
+        @media (max-width: 64em) {
           .ge-content {
-            padding-left: 16px;
-            padding-right: 16px;
+            padding: 0 1.5em;
           }
         }
         .ge-content-wrapper {
@@ -797,7 +796,7 @@ export default function HomePage() {
           letter-spacing: 0.05em;
         }
         @media (max-width: 64em) {
-          .ge-hero-title { text-align: center; }
+          .ge-hero-title { text-align: center; margin-top: 0; }
         }
         .ge-hero-wrapper {
           display: flex;
@@ -816,6 +815,9 @@ export default function HomePage() {
           letter-spacing: 0.05em;
           max-width: 6ch;
           font-stretch: condensed;
+        }
+        @media (max-width: 64em) {
+          .ge-hero-subtitle { max-width: none; margin: 0 auto 0.1em; font-size: clamp(2.5rem, 8vw, 5rem); }
         }
         .ge-hero-text {
           font-size: 1rem;

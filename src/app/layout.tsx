@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Fan Yao",
   description: "Fan Yao's personal site",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
