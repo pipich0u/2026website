@@ -556,19 +556,7 @@ export default function HomePage() {
       <footer className="ge-footer">
         <p style={{ display: "inline-block" }}>
           &copy; {new Date().getFullYear()} Fan Yao
-          <span style={{ marginRight: "0.7em" }}>.</span>
         </p>
-        <span>
-          <a
-            href="https://github.com/pipich0u"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ge-footer-link"
-            aria-label="GitHub"
-          >
-            <GithubIcon />
-          </a>
-        </span>
       </footer>
 
       <style>{`
