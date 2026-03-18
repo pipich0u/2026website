@@ -297,10 +297,16 @@ function MobileNav({
       }}
     >
       <ul className="mobile-nav-list">
-        {["Home", "Holidays", "Destinations", "Flights", "Offers", "Contacts"].map(
-          (item, i) => (
-            <li key={item} className="mobile-nav-item" style={i === 0 ? { borderTopWidth: 1 } : {}}>
-              <a onClick={onClose}>{item}</a>
+        {[
+          { label: "HOME", href: "/" },
+          { label: "HOLIDAYS", href: "#" },
+          { label: "TECHNOLOGY", href: "/technology" },
+          { label: "APPROACHING.AI", href: "#" },
+          { label: "OTHERS", href: "#" },
+          { label: "CONTACT", href: "#" },
+        ].map((item, i) => (
+            <li key={item.label} className="mobile-nav-item" style={i === 0 ? { borderTopWidth: 1 } : {}}>
+              <a href={item.href} onClick={onClose}>{item.label}</a>
             </li>
           )
         )}
