@@ -518,12 +518,16 @@ export default function HomePage() {
                       key={`${data.id}-${i}`}
                       className="ge-card"
                       style={{
-                        backgroundImage: `url(${data.background}${ext})`,
                         boxShadow: "15px 15px 50px #000",
                         cursor: "pointer",
                       }}
                       onClick={(e) => handleCardClick(data, e)}
                     >
+                      <img
+                        src={`${data.background}.webp`}
+                        alt={data.subtitle}
+                        className="ge-card-bg"
+                      />
                       <h2 className="ge-card-title">{data.title}</h2>
                       <h3 className="ge-card-subtitle">{data.subtitle}</h3>
                     </div>
@@ -914,9 +918,6 @@ export default function HomePage() {
         }
         .ge-card {
           box-sizing: border-box;
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
           border-radius: 18px;
           color: whitesmoke;
           display: flex;
@@ -930,6 +931,23 @@ export default function HomePage() {
           transition: transform 300ms ease, box-shadow 200ms;
           border: 1px solid rgba(255,255,255,0.15);
           backdrop-filter: blur(2px);
+          position: relative;
+          overflow: hidden;
+        }
+        .ge-card-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          z-index: 0;
+          pointer-events: none;
+        }
+        .ge-card-title, .ge-card-subtitle {
+          position: relative;
+          z-index: 1;
         }
         .ge-card:hover {
           transform: scale(1.03);
