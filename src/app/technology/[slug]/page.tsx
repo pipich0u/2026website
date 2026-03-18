@@ -195,7 +195,7 @@ export default async function PostPage({
           letter-spacing: 0.05em;
         }
         .post-title {
-          font-family: 'BiggerDisplay', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: clamp(2rem, 5vw, 3.2rem);
           font-weight: 700;
           line-height: 1.15;
