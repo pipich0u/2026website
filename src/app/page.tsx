@@ -355,9 +355,7 @@ export default function HomePage() {
   }, []);
 
   const ext = isWebP ? ".webp" : ".jpg";
-  const currentBg = isMobile
-    ? cardData[0].background + ext
-    : cardData[0].image + ext;
+  const currentBg = cardData[0].image + ".webp";
 
   // The visual offset: sliderIndex 0 -> show position 1 (the real first card)
   const visualPos = sliderIndex + 1;
@@ -433,7 +431,7 @@ export default function HomePage() {
   // Current real index for display (wrapping)
   const displayIndex = ((sliderIndex % total) + total) % total;
 
-  if (showLoading) return <LoadingScreen />;
+  if (showLoading && !isMobile) return <LoadingScreen />;
 
   return (
     <div className="ge-background">
