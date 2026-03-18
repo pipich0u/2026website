@@ -94,8 +94,6 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
 
-        <ShareBar title={post.title} url={`${SITE_URL}/technology/${slug}`} />
-
         <div className="post-back">
           <Link href="/technology" className="post-back-link">
             &larr; Back to articles
