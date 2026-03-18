@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ShareBar from "@/components/ShareBar";
+import MobileNav from "@/components/MobileNav";
 
 const SITE_URL = "https://2026website-one.vercel.app";
 
@@ -71,6 +72,7 @@ export default async function PostPage({
               </a>
             ))}
           </nav>
+          <MobileNav />
         </div>
       </header>
 

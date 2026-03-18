@@ -1,6 +1,7 @@
 import { getAllPosts } from "@/lib/posts";
 import Link from "next/link";
 import type { Metadata } from "next";
+import MobileNav from "@/components/MobileNav";
 
 export const metadata: Metadata = {
   title: "Technology | FANYAO'STUDIO",
@@ -32,6 +33,7 @@ export default async function TechnologyPage() {
               </a>
             ))}
           </nav>
+          <MobileNav />
         </div>
       </header>
 
