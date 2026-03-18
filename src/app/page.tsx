@@ -228,8 +228,6 @@ function DetailPage({
       <div
         className="ge-detail-page"
         style={{
-          backgroundImage: `url(${card.image}${ext})`,
-          // Animate from card position to full screen
           ...(isExpanded && !isExiting
             ? {
                 left: 0,
@@ -247,6 +245,7 @@ function DetailPage({
               }),
         }}
       >
+        <img src={`${card.image}.webp`} alt={card.subtitle} className="ge-detail-bg-img" />
         {/* Dark overlay for readability */}
         <div className="ge-detail-dim" />
 
@@ -513,23 +512,22 @@ export default function HomePage() {
                   }}
                   onTransitionEnd={handleTransitionEnd}
                 >
-                  {extendedCards.map((data, i) => (
+                  {(isMobile ? cardData : extendedCards).map((data, i) => (
                     <div
                       key={`${data.id}-${i}`}
                       className="ge-card"
-                      style={{
-                        boxShadow: "15px 15px 50px #000",
-                        cursor: "pointer",
-                      }}
                       onClick={(e) => handleCardClick(data, e)}
                     >
                       <img
                         src={`${data.background}.webp`}
                         alt={data.subtitle}
                         className="ge-card-bg"
+                        loading="eager"
                       />
-                      <h2 className="ge-card-title">{data.title}</h2>
-                      <h3 className="ge-card-subtitle">{data.subtitle}</h3>
+                      <div className="ge-card-info">
+                        <h2 className="ge-card-title">{data.title}</h2>
+                        <h3 className="ge-card-subtitle">{data.subtitle}</h3>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -920,19 +918,15 @@ export default function HomePage() {
           box-sizing: border-box;
           border-radius: 18px;
           color: whitesmoke;
-          display: flex;
-          flex-direction: column;
           flex-shrink: 0;
-          height: 520px;
-          justify-content: flex-end;
-          padding: 1.2rem;
-          white-space: normal;
           width: ${CARD_W}px;
+          height: 520px;
           transition: transform 300ms ease, box-shadow 200ms;
           border: 1px solid rgba(255,255,255,0.15);
-          backdrop-filter: blur(2px);
           position: relative;
           overflow: hidden;
+          cursor: pointer;
+          box-shadow: 15px 15px 50px #000;
         }
         .ge-card-bg {
           position: absolute;
@@ -941,13 +935,15 @@ export default function HomePage() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center;
-          z-index: 0;
-          pointer-events: none;
+          display: block;
         }
-        .ge-card-title, .ge-card-subtitle {
-          position: relative;
-          z-index: 1;
+        .ge-card-info {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 1.2rem;
+          background: linear-gradient(transparent, rgba(0,0,0,0.5));
         }
         .ge-card:hover {
           transform: scale(1.03);
@@ -1103,11 +1099,17 @@ export default function HomePage() {
         }
         .ge-detail-page {
           position: fixed;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
           overflow: hidden;
           transition: all 600ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ge-detail-bg-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
         .ge-detail-dim {
           display: none;
