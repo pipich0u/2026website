@@ -41,11 +41,6 @@ export default function TechnologyPage() {
                 <img src={post.cover} alt={post.title} />
               </div>
               <div className="blog-card-body">
-                <div className="blog-card-tags">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="blog-tag">{tag}</span>
-                  ))}
-                </div>
                 <h2 className="blog-card-title">{post.title}</h2>
                 <p className="blog-card-summary">{post.summary}</p>
                 <time className="blog-card-date">{post.date}</time>

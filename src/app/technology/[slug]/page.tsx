@@ -48,11 +48,6 @@ export default async function PostPage({
       {/* Article */}
       <article className="post-article">
         <div className="post-meta">
-          <div className="post-tags">
-            {post.tags.map((tag) => (
-              <span key={tag} className="post-tag">{tag}</span>
-            ))}
-          </div>
           <time className="post-date">{post.date}</time>
         </div>
 
