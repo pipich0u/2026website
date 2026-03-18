@@ -127,6 +127,18 @@ export default async function PostPage({
           color: #888;
           transition: color 200ms;
           text-transform: uppercase;
+          padding-bottom: 4px;
+        }
+        .post-nav-item::after {
+          background: #f7ba53;
+          content: '';
+          display: block;
+          height: 2px;
+          transition: width 0.3s;
+          width: 0;
+        }
+        .post-nav-item:hover::after, .post-nav-item.active::after {
+          width: 100%;
         }
         .post-nav-item:hover, .post-nav-item.active {
           color: #1a1a1a;

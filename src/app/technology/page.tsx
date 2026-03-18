@@ -112,6 +112,18 @@ export default function TechnologyPage() {
           color: #888;
           transition: color 200ms;
           text-transform: uppercase;
+          padding-bottom: 4px;
+        }
+        .blog-nav-item::after {
+          background: #f7ba53;
+          content: '';
+          display: block;
+          height: 2px;
+          transition: width 0.3s;
+          width: 0;
+        }
+        .blog-nav-item:hover::after, .blog-nav-item.active::after {
+          width: 100%;
         }
         .blog-nav-item:hover, .blog-nav-item.active {
           color: #1a1a1a;
