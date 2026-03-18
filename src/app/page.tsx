@@ -172,98 +172,56 @@ function LoadingScreen() {
   );
 }
 
-/* ── Detail Page (full-screen, flies out from card) ── */
+/* ── Detail Page (full-screen, simple fade in) ── */
 function DetailPage({
   card,
-  ext,
-  sourceRect,
   onClose,
 }: {
   card: (typeof cardData)[0];
-  ext: string;
-  sourceRect: DOMRect | null;
   onClose: () => void;
 }) {
-  const [phase, setPhase] = useState<"enter" | "active" | "exit">("enter");
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
 
-  // Trigger enter animation on mount
   useEffect(() => {
+    // Phase 1: fade in background
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => setPhase("active"));
+      requestAnimationFrame(() => setVisible(true));
     });
+    // Phase 2: fade in text after background is done
+    const timer = setTimeout(() => setContentVisible(true), 400);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
-    setPhase("exit");
-    setTimeout(onClose, 500);
+    setContentVisible(false);
+    setVisible(false);
+    setTimeout(onClose, 400);
   };
-
-  // Calculate the starting transform from source card rect
-  const startStyle = sourceRect
-    ? {
-        left: sourceRect.left,
-        top: sourceRect.top,
-        width: sourceRect.width,
-        height: sourceRect.height,
-        borderRadius: "20px",
-      }
-    : {
-        left: "50%",
-        top: "50%",
-        width: 0,
-        height: 0,
-        borderRadius: "20px",
-      };
-
-  const isExpanded = phase === "active";
-  const isExiting = phase === "exit";
 
   return (
     <div
-      ref={overlayRef}
       className="ge-detail-overlay"
-      style={{ opacity: isExiting ? 0 : 1 }}
+      style={{ opacity: visible ? 1 : 0 }}
     >
-      <div
-        className="ge-detail-page"
-        style={{
-          ...(isExpanded && !isExiting
-            ? {
-                left: 0,
-                top: 0,
-                width: "100vw",
-                height: "100vh",
-                borderRadius: 0,
-              }
-            : {
-                left: startStyle.left,
-                top: startStyle.top,
-                width: typeof startStyle.width === "number" ? startStyle.width + "px" : startStyle.width,
-                height: typeof startStyle.height === "number" ? startStyle.height + "px" : startStyle.height,
-                borderRadius: startStyle.borderRadius,
-              }),
-        }}
-      >
+      <div className="ge-detail-page">
         <img src={`${card.image}.webp`} alt={card.subtitle} className="ge-detail-bg-img" />
-        {/* Dark overlay for readability */}
-        <div className="ge-detail-dim" />
 
         {/* Close button */}
         <button
           className="ge-detail-close"
           onClick={handleClose}
-          style={{ opacity: isExpanded && !isExiting ? 1 : 0 }}
+          style={{ opacity: contentVisible ? 1 : 0 }}
         >
           <CloseIcon />
         </button>
 
-        {/* Content - same layout as homepage hero */}
+        {/* Content */}
         <div
           className="ge-detail-content"
           style={{
-            opacity: isExpanded && !isExiting ? 1 : 0,
-            transform: isExpanded && !isExiting ? "translateY(0)" : "translateY(40px)",
+            opacity: contentVisible ? 1 : 0,
+            transform: contentVisible ? "translateY(0)" : "translateY(30px)",
           }}
         >
           <h2 className="ge-detail-label">{card.title}</h2>
@@ -444,8 +402,6 @@ export default function HomePage() {
       {selectedCard && (
         <DetailPage
           card={selectedCard}
-          ext={ext}
-          sourceRect={cardRect}
           onClose={() => { setSelectedCard(null); setCardRect(null); }}
         />
       )}
@@ -1095,12 +1051,13 @@ export default function HomePage() {
           position: fixed;
           inset: 0;
           z-index: 10000;
-          transition: opacity 400ms ease;
+          transition: opacity 350ms ease;
+          background: black;
         }
         .ge-detail-page {
           position: fixed;
+          inset: 0;
           overflow: hidden;
-          transition: all 600ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         .ge-detail-bg-img {
           position: absolute;
