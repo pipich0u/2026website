@@ -571,14 +571,21 @@ export default function HomePage() {
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
+          background-attachment: fixed;
           display: flex;
           flex-direction: column;
           min-height: 100vh;
+          min-height: 100dvh;
           min-width: 265px;
           position: relative;
           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           color: #333;
           overflow: hidden;
+        }
+        @media (max-width: 64em) {
+          .ge-background {
+            background-attachment: scroll;
+          }
         }
         .ge-background::after {
           background-color: rgba(0, 0, 0, 0.1);
@@ -756,6 +763,12 @@ export default function HomePage() {
           position: relative;
           z-index: 1;
           padding-bottom: 120px;
+        }
+        @media (max-width: 64em) {
+          .ge-main {
+            align-items: center;
+            padding-bottom: 2em;
+          }
         }
         .ge-content {
           padding: 0 2.5em 0 5em;
