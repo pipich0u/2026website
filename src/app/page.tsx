@@ -887,6 +887,7 @@ export default function HomePage() {
           font-size: 0.85rem;
           letter-spacing: 0.1em;
           text-transform: uppercase;
+          text-decoration: none;
         }
         .ge-discover-btn:hover { background: rgba(220,220,220,0.37); }
 
