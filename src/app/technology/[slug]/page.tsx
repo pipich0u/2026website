@@ -2,6 +2,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import ShareBar from "@/components/ShareBar";
 
 const SITE_URL = "https://2026website-one.vercel.app";
 
@@ -90,6 +91,8 @@ export default async function PostPage({
           className="post-content"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        <ShareBar title={post.title} url={`${SITE_URL}/technology/${slug}`} />
 
         <div className="post-back">
           <Link href="/technology" className="post-back-link">
