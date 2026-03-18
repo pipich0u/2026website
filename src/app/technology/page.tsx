@@ -147,15 +147,11 @@ export default function TechnologyPage() {
           line-height: 1;
         }
         .blog-hero-desc {
-          font-family: 'Oswald', sans-serif;
-          font-weight: 300;
-          font-size: 1.2rem;
+          font-size: 1.15rem;
           color: #666;
           margin: 0;
           max-width: 500px;
           line-height: 1.6;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
         }
         @media (max-width: 48em) {
           .blog-hero { padding: 3em 1.2em 2em; }
