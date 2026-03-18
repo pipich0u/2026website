@@ -62,7 +62,7 @@ export default async function PostPage({
         <div className="post-header-inner">
           <Link href="/" className="post-logo">FANYAO&apos;STUDIO</Link>
           <nav className="post-nav">
-            {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "CONTACT"].map((item) => (
+            {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "ABOUT.ME"].map((item) => (
               <a
                 key={item}
                 href={item === "HOME" ? "/" : item === "TECHNOLOGY" ? "/technology" : "#"}

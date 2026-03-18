@@ -8,7 +8,7 @@ const navItems = [
   { label: "TECHNOLOGY", href: "/technology" },
   { label: "APPROACHING.AI", href: "#" },
   { label: "OTHERS", href: "#" },
-  { label: "CONTACT", href: "#" },
+  { label: "ABOUT.ME", href: "#" },
 ];
 
 export default function MobileNav() {

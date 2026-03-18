@@ -23,7 +23,7 @@ export default async function TechnologyPage() {
         <div className="blog-header-inner">
           <Link href="/" className="blog-logo">FANYAO&apos;STUDIO</Link>
           <nav className="blog-nav">
-            {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "CONTACT"].map((item) => (
+            {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "ABOUT.ME"].map((item) => (
               <a
                 key={item}
                 href={item === "HOME" ? "/" : item === "TECHNOLOGY" ? "/technology" : "#"}
