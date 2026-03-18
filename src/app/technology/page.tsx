@@ -1,5 +1,16 @@
 import { getAllPosts } from "@/lib/posts";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Technology | FANYAO'STUDIO",
+  description: "Thoughts on AI, engineering, and the future of software.",
+  openGraph: {
+    title: "Technology | FANYAO'STUDIO",
+    description: "Thoughts on AI, engineering, and the future of software.",
+    type: "website",
+  },
+};
 
 export default async function TechnologyPage() {
   const posts = await getAllPosts();

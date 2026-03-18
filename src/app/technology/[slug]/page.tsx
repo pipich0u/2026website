@@ -1,10 +1,45 @@
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+const SITE_URL = "https://2026website-one.vercel.app";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) return {};
+
+  const coverUrl = post.cover.startsWith("http")
+    ? post.cover
+    : `${SITE_URL}${post.cover}`;
+
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      type: "article",
+      publishedTime: post.date,
+      images: [{ url: coverUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: [coverUrl],
+    },
+  };
 }
 
 export default async function PostPage({
