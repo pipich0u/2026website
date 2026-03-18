@@ -269,8 +269,7 @@ function DetailPage({
           <h2 className="ge-detail-label">{card.title}</h2>
           <h1 className="ge-detail-title">{card.subtitle}</h1>
           <p className="ge-detail-desc">
-            Explore the breathtaking landscapes and immerse yourself in the beauty of {card.subtitle}.
-            This destination offers unforgettable experiences, from stunning natural vistas to rich cultural heritage.
+            This content is currently under preparation and will be updated with detailed information at a later time. For the time being, this section serves as a placeholder to maintain layout integrity and structural completeness.
           </p>
           <button className="ge-detail-btn" onClick={handleClose}>
             BACK TO GALLERY
