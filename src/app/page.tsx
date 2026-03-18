@@ -436,10 +436,13 @@ export default function HomePage() {
   if (showLoading) return <LoadingScreen />;
 
   return (
-    <div
-      className="ge-background"
-      style={{ backgroundImage: `url(${currentBg})` }}
-    >
+    <div className="ge-background">
+      {/* Background image as element for mobile compatibility */}
+      <img
+        src={currentBg}
+        alt=""
+        className="ge-bg-img"
+      />
       {/* Detail page */}
       {selectedCard && (
         <DetailPage
@@ -568,9 +571,6 @@ export default function HomePage() {
           font-display: swap;
         }
         .ge-background {
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
           display: flex;
           flex-direction: column;
           min-height: 100vh;
@@ -580,6 +580,17 @@ export default function HomePage() {
           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           color: #333;
           overflow: hidden;
+        }
+        .ge-bg-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          z-index: 0;
+          pointer-events: none;
         }
         .ge-background::after {
           background-color: rgba(0, 0, 0, 0.1);
