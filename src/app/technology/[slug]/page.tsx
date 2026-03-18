@@ -249,7 +249,7 @@ export default async function PostPage({
           color: #333;
         }
         .post-content h2 {
-          font-family: 'BiggerDisplay', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: 1.6rem;
           font-weight: 700;
           margin: 2.5em 0 0.8em;
