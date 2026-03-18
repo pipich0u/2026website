@@ -224,12 +224,13 @@ export default function TechnologyPage() {
           font-weight: 600;
         }
         .blog-card-title {
-          font-family: 'BiggerDisplay', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: 1.4rem;
           font-weight: 700;
           margin: 0 0 0.6em;
           line-height: 1.2;
           letter-spacing: 0.02em;
+          color: #1a1a1a;
         }
         .blog-card-summary {
           font-size: 0.9rem;
