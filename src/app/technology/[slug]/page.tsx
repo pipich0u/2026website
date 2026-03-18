@@ -137,7 +137,7 @@ export default async function PostPage({
           transition: width 0.3s;
           width: 0;
         }
-        .post-nav-item:hover::after, .post-nav-item.active::after {
+        .post-nav-item:hover::after {
           width: 100%;
         }
         .post-nav-item:hover, .post-nav-item.active {

@@ -122,7 +122,7 @@ export default function TechnologyPage() {
           transition: width 0.3s;
           width: 0;
         }
-        .blog-nav-item:hover::after, .blog-nav-item.active::after {
+        .blog-nav-item:hover::after {
           width: 100%;
         }
         .blog-nav-item:hover, .blog-nav-item.active {
