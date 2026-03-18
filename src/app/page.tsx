@@ -463,7 +463,7 @@ export default function HomePage() {
             <ul className="ge-menu">
               {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "CONTACT"].map((item) => (
                 <li key={item} className="ge-menu-item">
-                  <a>{item}</a>
+                  <a href={item === "HOME" ? "/" : item === "TECHNOLOGY" ? "/technology" : "#"}>{item}</a>
                 </li>
               ))}
             </ul>
