@@ -1,8 +1,8 @@
 import { getAllPosts } from "@/lib/posts";
 import Link from "next/link";
 
-export default function TechnologyPage() {
-  const posts = getAllPosts();
+export default async function TechnologyPage() {
+  const posts = await getAllPosts();
 
   return (
     <div className="blog-page">

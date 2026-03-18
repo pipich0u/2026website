@@ -1,11 +1,10 @@
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import { remark } from "remark";
-import html from "remark-html";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export default async function PostPage({
@@ -14,11 +13,10 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const result = await remark().use(html).process(post.content);
-  const contentHtml = result.toString();
+  const contentHtml = post.content;
 
   return (
     <div className="post-page">
