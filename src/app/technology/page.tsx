@@ -147,6 +147,8 @@ export default function TechnologyPage() {
           line-height: 1;
         }
         .blog-hero-desc {
+          font-family: 'BiggerDisplay', sans-serif;
+          font-weight: normal;
           font-size: 1.15rem;
           color: #666;
           margin: 0;
