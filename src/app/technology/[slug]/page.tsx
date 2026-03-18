@@ -79,21 +79,6 @@ export default async function PostPage({
           font-display: swap;
         }
 
-        @font-face {
-          font-family: 'Alibaba PuHuiTi 3';
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-          src: url('https://cdn.jsdelivr.net/npm/alibabapuhuiti-3-55-regular@1.0.0/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
-        }
-        @font-face {
-          font-family: 'Alibaba PuHuiTi 3';
-          font-weight: 700;
-          font-style: normal;
-          font-display: swap;
-          src: url('https://cdn.jsdelivr.net/npm/alibabapuhuiti-3-85-bold@1.0.0/AlibabaPuHuiTi-3-85-Bold.woff2') format('woff2');
-        }
-
         .post-page {
           min-height: 100vh;
           background: #fafafa;
@@ -210,18 +195,17 @@ export default async function PostPage({
           letter-spacing: 0.05em;
         }
         .post-title {
-          font-family: 'Alibaba PuHuiTi 3', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: clamp(2rem, 5vw, 3.2rem);
           font-weight: 700;
           line-height: 1.15;
           letter-spacing: 0.02em;
           margin: 0 0 1.5em;
-          color: #000;
+          color: #1a1a1a;
         }
 
         /* ── Markdown content ── */
         .post-content {
-          font-family: 'Alibaba PuHuiTi 3', sans-serif;
           font-size: 1.05rem;
           line-height: 1.8;
           color: #333;
