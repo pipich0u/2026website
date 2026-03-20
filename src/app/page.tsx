@@ -107,6 +107,87 @@ function BookmarkIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
+function SubscribeButton() {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleToggle = () => {
+    if (status === "success") return;
+    setOpen(!open);
+    if (!open) setTimeout(() => inputRef.current?.focus(), 350);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || status === "loading") return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setTimeout(() => { setOpen(false); }, 2500);
+        setTimeout(() => { setStatus("idle"); setEmail(""); }, 3000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 2000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 2000);
+    }
+  };
+
+  return (
+    <div className="ge-subscribe-wrap">
+      {status === "success" ? (
+        <div className={`ge-subscribe-toast ${open ? "ge-subscribe-open" : ""}`}>
+          <CheckIcon />
+          <span>Subscribed!</span>
+        </div>
+      ) : (
+        <form
+          className={`ge-subscribe-form ${open ? "ge-subscribe-open" : ""}`}
+          onSubmit={handleSubmit}
+        >
+          <input
+            ref={inputRef}
+            type="email"
+            placeholder="Enter your email to subscribe"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="ge-subscribe-input"
+            required
+          />
+          <button type="submit" className="ge-subscribe-send" disabled={status === "loading"}>
+            {status === "loading" ? "..." : "OK"}
+          </button>
+        </form>
+      )}
+      <button
+        className={`ge-bookmark-btn ${status === "success" ? "ge-bookmark-success" : ""}`}
+        aria-label="Subscribe"
+        onClick={handleToggle}
+      >
+        {status === "success" ? <CheckIcon /> : <BookmarkIcon />}
+      </button>
+    </div>
+  );
+}
+
 function ChevronLeftIcon() {
   return (
     <svg viewBox="0 0 16 16" fill="currentColor" width="22" height="22">
@@ -505,9 +586,7 @@ export default function HomePage() {
                   Hi, I&apos;m Fan Yao. This is my personal website, where I document my thoughts, keep learning, and share insights with others. I serve as the Director of Solutions at APPROACHING.AI.
                 </p>
                 <div className="ge-hero-actions">
-                  <button className="ge-bookmark-btn" aria-label="Add bookmark">
-                    <BookmarkIcon />
-                  </button>
+                  <SubscribeButton />
                   <a href="mailto:2300078818@qq.com" className="ge-discover-btn">CONTACT ME</a>
                 </div>
               </div>
@@ -866,23 +945,103 @@ export default function HomePage() {
         @media (max-width: 64em) {
           .ge-hero-actions { justify-content: flex-start; }
         }
+        .ge-subscribe-wrap {
+          display: flex;
+          align-items: center;
+          margin-right: 16px;
+          position: relative;
+        }
+        .ge-subscribe-form {
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          max-width: 0;
+          opacity: 0;
+          transition: max-width 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+          margin-right: 0;
+        }
+        .ge-subscribe-form.ge-subscribe-open {
+          max-width: 280px;
+          opacity: 1;
+          margin-right: 10px;
+        }
+        .ge-subscribe-input {
+          width: 220px;
+          height: 36px;
+          padding: 0 0.9rem;
+          border: 1px solid rgba(255,255,255,0.4);
+          border-right: none;
+          border-radius: 18px 0 0 18px;
+          background: rgba(255,255,255,0.1);
+          color: white;
+          font-size: 0.8rem;
+          outline: none;
+          backdrop-filter: blur(8px);
+          transition: border-color 0.2s;
+          box-sizing: border-box;
+        }
+        .ge-subscribe-input::placeholder { color: rgba(255,255,255,0.45); }
+        .ge-subscribe-input:focus { border-color: #f7ba53; }
+        .ge-subscribe-send {
+          height: 36px;
+          padding: 0 1rem;
+          border: none;
+          border-radius: 0 18px 18px 0;
+          background: #f7ba53;
+          color: white;
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.78rem;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          cursor: pointer;
+          transition: background 0.2s;
+          white-space: nowrap;
+          box-sizing: border-box;
+        }
+        .ge-subscribe-send:hover { background: #e5a843; }
+        .ge-subscribe-toast {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          height: 36px;
+          padding: 0 1rem;
+          border-radius: 18px;
+          background: rgba(76, 175, 80, 0.25);
+          border: 1px solid rgba(76, 175, 80, 0.5);
+          color: #a5d6a7;
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.82rem;
+          letter-spacing: 0.08em;
+          white-space: nowrap;
+          overflow: hidden;
+          max-width: 0;
+          opacity: 0;
+          transition: max-width 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+          margin-right: 0;
+          backdrop-filter: blur(8px);
+        }
+        .ge-subscribe-toast.ge-subscribe-open {
+          max-width: 200px;
+          opacity: 1;
+          margin-right: 10px;
+        }
+        .ge-subscribe-toast svg { width: 16px; height: 16px; stroke: #a5d6a7; flex-shrink: 0; }
         .ge-bookmark-btn {
           background: #f7ba53;
           border: none;
           border-radius: 50%;
           color: white;
           padding: 0.65rem;
-          margin-right: 16px;
           cursor: pointer;
-          transition: background 200ms;
+          transition: background 200ms, transform 0.3s;
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-shrink: 0;
         }
-        .ge-bookmark-btn:hover { background: #f7ba53d6; }
-        @media (max-width: 64em) {
-          .ge-bookmark-btn { display: flex; }
-        }
+        .ge-bookmark-btn:hover { background: #e5a843; transform: scale(1.05); }
+        .ge-bookmark-success { background: #4caf50 !important; }
+        .ge-bookmark-success:hover { background: #43a047 !important; }
         .ge-discover-btn {
           background: none;
           border: 1px solid rgba(255,255,255,0.5);
