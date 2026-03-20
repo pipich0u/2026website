@@ -6,6 +6,8 @@ import ShareBar from "@/components/ShareBar";
 import MobileNav from "@/components/MobileNav";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 const SITE_URL = "https://2026website-one.vercel.app";
 
