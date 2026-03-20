@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import ShareBar from "@/components/ShareBar";
 import MobileNav from "@/components/MobileNav";
 
+export const dynamic = "force-dynamic";
+
 const SITE_URL = "https://2026website-one.vercel.app";
 
 export async function generateStaticParams() {

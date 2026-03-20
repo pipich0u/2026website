@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import MobileNav from "@/components/MobileNav";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Technology | FANYAO'STUDIO",
   description: "Thoughts on AI, engineering, and the future of software.",
