@@ -10,6 +10,7 @@ const cardData = [
     background: "/assets/images/small/saint-antonien",
     title: "Switzerland - Alps",
     subtitle: "Saint Antönien",
+    description: "A village so quiet you can hear the cold. Six generations of farmhouses suspended between ridgelines, where woodsmoke and cowbells are the only conversation.",
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const cardData = [
     background: "/assets/images/small/japan-alps",
     title: "Japan Alps",
     subtitle: "Nagano Prefecture",
+    description: "Snow country in February — cedar forests turned to white sculptures, hot spring monkeys, and the particular violet that Hakuba wears at dusk.",
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ const cardData = [
     background: "/assets/images/small/morocco",
     title: "Saharan Desert - Morocco",
     subtitle: "Marrakech Merzouga",
+    description: "Where the road stops pretending and the dunes begin. Sand arranged by wind into forms that seem almost deliberate, under a silence that is not an absence but a presence.",
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ const cardData = [
     background: "/assets/images/small/yosemite",
     title: "Sierra Nevada - United States",
     subtitle: "Yosemite National Park",
+    description: "El Capitan settles questions about scale. October light paints the black oaks amber, and Mirror Lake holds a reflection so precise it looks like two worlds sharing one surface.",
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ const cardData = [
     background: "/assets/images/small/los-lances",
     title: "Tarifa - Spain",
     subtitle: "Los Lances Beach",
+    description: "The southernmost point of continental Europe, where the wind has opinions and Africa is visible across fourteen kilometers of strait.",
   },
   {
     id: 6,
@@ -45,6 +50,7 @@ const cardData = [
     background: "/assets/images/small/cappadocia",
     title: "Cappadocia - Turkey",
     subtitle: "Göreme Valley",
+    description: "Ten million years of volcanic eruption and erosion, fairy chimneys at dawn, and thirty balloons rising into a sky that hasn't decided on a color yet.",
   },
   {
     id: 7,
@@ -52,6 +58,7 @@ const cardData = [
     background: "/assets/images/small/serengeti",
     title: "Serengeti - Tanzania",
     subtitle: "African Savanna",
+    description: "1.5 million wildebeest in continuous motion across an ecosystem so vast it takes twelve months to cross. The Great Migration is not an event — it is a condition.",
   },
 ];
 
