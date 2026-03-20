@@ -3,6 +3,11 @@ import { Client } from "@notionhq/client";
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const databaseId = process.env.NOTION_DATABASE_ID!;
 
+// Local cover overrides — keyed by Notion slug, takes priority over Notion's Cover field
+const COVER_OVERRIDES: Record<string, string> = {
+  Writing: "/assets/images/wave-cover.jpg",
+};
+
 export interface Post {
   slug: string;
   title: string;
@@ -110,13 +115,14 @@ export async function getAllPosts(): Promise<Post[]> {
 
   return response.results.map((page: any) => {
     const props = page.properties;
+    const slug = props.Slug?.rich_text?.[0]?.plain_text ?? "";
     return {
-      slug: props.Slug?.rich_text?.[0]?.plain_text ?? "",
+      slug,
       title: props.Title?.title?.[0]?.plain_text ?? "",
       date: props.Date?.date?.start ?? "",
       summary: props.Summary?.rich_text?.[0]?.plain_text ?? "",
       tags: [],
-      cover: props.Cover?.url ?? "",
+      cover: COVER_OVERRIDES[slug] ?? props.Cover?.url ?? "",
       content: "",
     };
   });
@@ -148,7 +154,7 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
     date: props.Date?.date?.start ?? "",
     summary: props.Summary?.rich_text?.[0]?.plain_text ?? "",
     tags: [],
-    cover: props.Cover?.url ?? "",
+    cover: COVER_OVERRIDES[slug] ?? props.Cover?.url ?? "",
     content: contentHtml,
   };
 }
