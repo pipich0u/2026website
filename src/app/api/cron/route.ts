@@ -16,7 +16,7 @@ interface BlogPage {
 }
 
 async function getNewPosts(): Promise<BlogPage[]> {
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
   const res = await fetch(
     `https://api.notion.com/v1/databases/${process.env.NOTION_BLOG_DB}/query`,
@@ -31,7 +31,7 @@ async function getNewPosts(): Promise<BlogPage[]> {
         filter: {
           and: [
             { property: "Published", checkbox: { equals: true } },
-            { property: "Date", date: { on_or_after: oneHourAgo } },
+            { property: "Date", date: { on_or_after: oneDayAgo } },
           ],
         },
       }),
