@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import JournalPage from "@/components/JournalPage";
 
 const cardData = [
   {
@@ -444,9 +445,9 @@ export default function HomePage() {
         alt=""
         className="ge-bg-img"
       />
-      {/* Detail page */}
+      {/* Journal page */}
       {selectedCard && (
-        <DetailPage
+        <JournalPage
           card={selectedCard}
           ext={ext}
           sourceRect={cardRect}
