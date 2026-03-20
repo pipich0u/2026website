@@ -87,7 +87,7 @@ export default async function ApproachingAIPage() {
 
       {/* Hero */}
       <section className="ai-hero">
-        <h1 className="ai-hero-title">APPROACHING.AI</h1>
+        <h1 className="ai-hero-title">TECHNOLOGY</h1>
         <p className="ai-hero-desc">Tracking open-source AI infrastructure and model landscape.</p>
       </section>
 

@@ -39,7 +39,7 @@ export default async function TechnologyPage() {
 
       {/* Hero */}
       <section className="blog-hero">
-        <h1 className="blog-hero-title">TECHNOLOGY</h1>
+        <h1 className="blog-hero-title">THOUGHTS</h1>
         <p className="blog-hero-desc">
           Thoughts on AI, engineering, and the future of software.
         </p>
