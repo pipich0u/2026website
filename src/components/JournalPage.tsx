@@ -191,76 +191,110 @@ export default function JournalPage({
               )}
               <div className="jn-hero-actions">
                 <button className="jn-exit-btn" onClick={handleClose}>BACK TO GALLERY</button>
+                <button className="jn-scroll-btn" aria-label="Scroll to article" onClick={() => {
+                  const article = document.querySelector('.jn-article');
+                  if (article) article.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
               </div>
             </div>
+
           </div>
 
-          {/* ── MAGAZINE BODY — light, NatGeo-inspired ── */}
+          {/* ── MAGAZINE BODY ── */}
           {journal && (
             <article className="jn-article">
-              {/* Yellow rule + date bar */}
+              {/* Transition strip */}
+              <div className="jn-transition-strip">
+                <div className="jn-yellow-rule" />
+              </div>
+
+              {/* Masthead */}
               <Reveal delay={0}>
                 <div className="jn-masthead">
-                  <div className="jn-yellow-rule" />
+                  <p className="jn-masthead-label">Travel Journal</p>
                   <div className="jn-meta-row">
                     <span className="jn-meta-date">{journal.date}</span>
-                    <span className="jn-meta-sep" />
-                    <span className="jn-meta-place">{card.subtitle}</span>
+                    <span className="jn-meta-dot" />
+                    <span className="jn-meta-place">{card.title}</span>
                   </div>
+                  <h2 className="jn-masthead-title">{card.subtitle}</h2>
                 </div>
               </Reveal>
 
-              {journal.sections.map((sec, i) => {
-                if (sec.type === "intro") return (
-                  <Reveal key={i} delay={0.1}>
-                    <p className="jn-intro">{sec.content}</p>
-                  </Reveal>
-                );
+              {/* Intro */}
+              {journal.sections.filter(s => s.type === "intro").map((sec, i) => (
+                <Reveal key={`intro-${i}`} delay={0.1}>
+                  <p className="jn-intro">{sec.content}</p>
+                </Reveal>
+              ))}
 
-                if (sec.type === "chapter") return (
-                  <Reveal key={i} delay={0}>
-                    <div className="jn-chapter-wrap">
-                      <div className="jn-chapter-accent" />
-                      <h2 className="jn-chapter">{sec.content}</h2>
-                      {sec.sub && <p className="jn-chapter-sub">{sec.sub}</p>}
-                    </div>
-                  </Reveal>
-                );
-
-                if (sec.type === "text") return (
-                  <Reveal key={i} delay={0.08}>
-                    <div>
-                      {sec.content.split("\n\n").map((para, pi) => (
-                        <p key={pi} className={`jn-body${pi === 0 ? " jn-drop" : ""}`}>{para}</p>
-                      ))}
-                    </div>
-                  </Reveal>
-                );
-
-                if (sec.type === "quote") return (
-                  <Reveal key={i} delay={0.08}>
-                    <div className="jn-quote-wrap">
-                      <blockquote className="jn-quote">&ldquo;{sec.content}&rdquo;</blockquote>
-                      {sec.sub && <cite className="jn-quote-attr">— {sec.sub}</cite>}
-                    </div>
-                  </Reveal>
-                );
-
-                return null;
-              })}
-
-              {/* End ornament */}
+              {/* Separator */}
               <Reveal delay={0}>
-                <div className="jn-fin">
-                  <span className="jn-fin-rule" />
-                  <span className="jn-fin-diamond" />
-                  <span className="jn-fin-rule" />
+                <div className="jn-sep">
+                  <span className="jn-sep-diamond" />
+                  <span className="jn-sep-line" />
+                  <span className="jn-sep-diamond" />
                 </div>
               </Reveal>
 
-              {/* Back button */}
+              {/* Body sections */}
+              {(() => {
+                let chapterIdx = 0;
+                return journal.sections.filter(s => s.type !== "intro").map((sec, i) => {
+                  if (sec.type === "chapter") {
+                    chapterIdx++;
+                    return (
+                      <Reveal key={i} delay={0}>
+                        <div className="jn-chapter-wrap">
+                          <div className="jn-chapter-num-col">
+                            <span className="jn-chapter-num">{String(chapterIdx).padStart(2, "0")}</span>
+                            <span className="jn-chapter-vline" />
+                          </div>
+                          <div>
+                            <h2 className="jn-chapter">{sec.content}</h2>
+                            {sec.sub && <p className="jn-chapter-sub">{sec.sub}</p>}
+                          </div>
+                        </div>
+                      </Reveal>
+                    );
+                  }
+
+                  if (sec.type === "text") return (
+                    <Reveal key={i} delay={0.08}>
+                      <div>
+                        {sec.content.split("\n\n").map((para, pi) => (
+                          <p key={pi} className={`jn-body${pi === 0 ? " jn-drop" : ""}`}>{para}</p>
+                        ))}
+                      </div>
+                    </Reveal>
+                  );
+
+                  if (sec.type === "quote") return (
+                    <Reveal key={i} delay={0.08}>
+                      <figure className="jn-quote-wrap">
+                        <div className="jn-quote-bar" />
+                        <blockquote className="jn-quote">{sec.content}</blockquote>
+                        {sec.sub && <figcaption className="jn-quote-attr">— {sec.sub}</figcaption>}
+                      </figure>
+                    </Reveal>
+                  );
+
+                  return null;
+                });
+              })()}
+
+              {/* End piece */}
               <Reveal delay={0}>
-                <div className="jn-back-wrap">
+                <div className="jn-fin-wrap">
+                  <div className="jn-fin-line" />
+                  <div className="jn-fin-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <p className="jn-fin-text">End of Journal</p>
                   <button className="jn-back-btn" onClick={handleClose}>Back to Gallery</button>
                 </div>
               </Reveal>
@@ -341,79 +375,147 @@ export default function JournalPage({
           overflow: hidden;
         }
 
-        /* ── Article — warm light theme ── */
+        /* ── Article ── */
         .jn-article {
           background: #FAF8F4;
-          padding: 0 0 5em;
+          padding: 0 0 6em;
+        }
+
+        /* Transition strip */
+        .jn-transition-strip {
+          background: #FAF8F4;
+          display: flex;
+          justify-content: center;
+          padding: 4em 0 0;
+        }
+        .jn-yellow-rule {
+          width: 48px;
+          height: 3px;
+          background: #f7ba53;
+          border-radius: 2px;
         }
 
         /* Masthead */
         .jn-masthead {
-          max-width: 680px;
+          max-width: 720px;
           margin: 0 auto;
-          padding: 4em 2em 0;
+          padding: 3.5em 2.5em 0;
+          text-align: center;
         }
-        .jn-yellow-rule {
-          width: 64px;
-          height: 4px;
-          background: #FFCE04;
-          margin-bottom: 2em;
+        .jn-masthead-label {
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.6rem;
+          font-weight: 400;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: #c9a84c;
+          margin: 0 0 2em;
         }
         .jn-meta-row {
           display: flex;
           align-items: center;
-          gap: 1.2em;
+          justify-content: center;
+          gap: 0.8em;
           font-family: 'Oswald', sans-serif;
-          font-size: 0.7rem;
+          font-size: 0.65rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: #999;
+          color: #aaa49a;
         }
-        .jn-meta-sep {
-          flex: 1;
-          height: 1px;
-          background: #e0ddd6;
+        .jn-meta-dot {
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background: #d0cbc2;
         }
-        .jn-meta-date { color: #888; }
-        .jn-meta-place { color: #888; }
+        .jn-masthead-title {
+          font-family: Georgia, 'Times New Roman', serif;
+          font-size: clamp(2rem, 5vw, 3.2rem);
+          font-weight: 400;
+          color: #2a2722;
+          line-height: 1.25;
+          margin: 0.7em 0 0;
+          letter-spacing: -0.01em;
+        }
 
         /* Intro */
         .jn-intro {
-          max-width: 680px;
-          margin: 2.8em auto 0;
-          padding: 0 2em;
+          max-width: 600px;
+          margin: 3.5em auto 0;
+          padding: 0 2.5em;
           font-family: Georgia, 'Times New Roman', serif;
-          font-size: clamp(1.15rem, 2vw, 1.35rem);
-          line-height: 1.9;
+          font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+          line-height: 2.1;
           font-style: italic;
-          color: #4a4540;
+          color: #6d665c;
+          text-align: center;
+        }
+
+        /* Separator */
+        .jn-sep {
+          max-width: 720px;
+          margin: 3.5em auto 0;
+          padding: 0 2.5em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1em;
+        }
+        .jn-sep-line {
+          width: 80px;
+          height: 1px;
+          background: #ddd8d0;
+        }
+        .jn-sep-diamond {
+          width: 5px;
+          height: 5px;
+          background: #d0cbc2;
+          transform: rotate(45deg);
+          flex-shrink: 0;
         }
 
         /* Chapter */
         .jn-chapter-wrap {
-          max-width: 680px;
-          margin: 4.5em auto 0;
-          padding: 0 2em;
+          max-width: 720px;
+          margin: 4em auto 0;
+          padding: 0 2.5em;
+          display: flex;
+          align-items: flex-start;
+          gap: 1.6em;
         }
-        .jn-chapter-accent {
-          width: 32px;
-          height: 3px;
-          background: #FFCE04;
-          margin-bottom: 1.2em;
+        .jn-chapter-num-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.6em;
+          flex-shrink: 0;
+          padding-top: 0.15em;
+        }
+        .jn-chapter-num {
+          font-family: Georgia, serif;
+          font-size: 2rem;
+          font-weight: 400;
+          color: #c9a84c;
+          line-height: 1;
+        }
+        .jn-chapter-vline {
+          width: 1px;
+          height: 24px;
+          background: linear-gradient(to bottom, #d8d3c8, transparent);
         }
         .jn-chapter {
           font-family: 'Oswald', sans-serif;
-          font-size: 0.78rem;
+          font-size: 0.82rem;
           font-weight: 700;
-          letter-spacing: 0.3em;
+          letter-spacing: 0.28em;
           text-transform: uppercase;
           color: #2a2722;
-          margin: 0 0 0.3em;
+          margin: 0 0 0.35em;
         }
         .jn-chapter-sub {
           font-family: 'Oswald', sans-serif;
-          font-size: 0.65rem;
-          letter-spacing: 0.16em;
+          font-size: 0.6rem;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
           color: #b0a89a;
           margin: 0;
@@ -421,100 +523,127 @@ export default function JournalPage({
 
         /* Body text */
         .jn-body {
-          max-width: 680px;
+          max-width: 720px;
           margin: 2em auto 0;
-          padding: 0 2em;
+          padding: 0 2.5em;
           font-family: Georgia, 'Times New Roman', serif;
-          font-size: clamp(1rem, 1.6vw, 1.1rem);
-          line-height: 2;
-          color: #555048;
+          font-size: clamp(1rem, 1.4vw, 1.08rem);
+          line-height: 2.1;
+          color: #4a4540;
+          text-align: justify;
+          hyphens: auto;
         }
 
         /* Drop cap */
         .jn-drop::first-letter {
           float: left;
           font-family: Georgia, serif;
-          font-size: 4.5em;
-          line-height: 0.78;
+          font-size: 4em;
+          line-height: 0.82;
           padding-right: 0.12em;
-          margin-top: 0.05em;
+          margin-top: 0.08em;
           color: #2a2722;
-          font-weight: 700;
+          font-weight: 400;
         }
 
         /* Pull quote */
         .jn-quote-wrap {
-          max-width: 600px;
-          margin: 4em auto;
-          padding: 2.5em 2em 2.5em 3em;
-          border-left: 3px solid #FFCE04;
-          background: rgba(255,206,4,0.04);
+          max-width: 580px;
+          margin: 3.5em auto;
+          padding: 2.5em 3em;
+          text-align: left;
+          position: relative;
+        }
+        .jn-quote-bar {
+          position: absolute;
+          left: 0;
+          top: 2.5em;
+          bottom: 2.5em;
+          width: 3px;
+          background: #f7ba53;
+          border-radius: 2px;
         }
         .jn-quote {
           font-family: Georgia, 'Times New Roman', serif;
-          font-size: clamp(1.2rem, 2.4vw, 1.55rem);
-          line-height: 1.7;
+          font-size: clamp(1.12rem, 2vw, 1.35rem);
+          line-height: 1.85;
           font-style: italic;
-          color: #2a2722;
-          margin: 0 0 0.8em;
+          color: #3a3630;
+          margin: 0 0 1em;
         }
         .jn-quote-attr {
           display: block;
           font-family: 'Oswald', sans-serif;
           font-size: 0.6rem;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
           color: #b0a89a;
           font-style: normal;
         }
 
-        /* End ornament */
-        .jn-fin {
-          max-width: 680px;
+        /* End piece */
+        .jn-fin-wrap {
+          max-width: 720px;
           margin: 5em auto 0;
-          padding: 0 2em;
+          padding: 0 2.5em;
           display: flex;
+          flex-direction: column;
           align-items: center;
           gap: 1.5em;
         }
-        .jn-fin-rule {
-          flex: 1;
+        .jn-fin-line {
+          width: 48px;
           height: 1px;
-          background: #e0ddd6;
+          background: #ddd8d0;
         }
-        .jn-fin-diamond {
-          width: 8px;
-          height: 8px;
-          background: #FFCE04;
-          transform: rotate(45deg);
+        .jn-fin-badge {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1px solid #e0ddd6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #c9a84c;
         }
-
-        /* Back button */
-        .jn-back-wrap {
-          text-align: center;
-          margin-top: 3em;
+        .jn-fin-badge svg {
+          width: 18px;
+          height: 18px;
+        }
+        .jn-fin-text {
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.58rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #c0b9ad;
+          margin: 0;
         }
         .jn-back-btn {
           font-family: 'Oswald', sans-serif;
-          font-size: 0.72rem;
-          letter-spacing: 0.22em;
+          font-size: 0.68rem;
+          letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: #888;
+          color: #999;
           background: none;
           border: 1px solid #d5d0c8;
-          border-radius: 2px;
-          padding: 0.9em 2.2em;
+          border-radius: 20px;
+          padding: 0.8em 2.5em;
           cursor: pointer;
           transition: all 0.3s ease;
+          margin-top: 0.5em;
         }
         .jn-back-btn:hover {
           color: #2a2722;
           border-color: #2a2722;
+          background: rgba(0,0,0,0.03);
         }
 
         /* Hero exit button — matches ge-discover-btn on homepage */
         .jn-hero-actions {
           margin-top: 1.8em;
+          display: flex;
+          gap: 0.8rem;
+          align-items: center;
         }
         .jn-exit-btn {
           background: none;
@@ -532,16 +661,43 @@ export default function JournalPage({
           background: rgba(220,220,220,0.37);
           border-color: white;
         }
+        .jn-scroll-btn {
+          background: #f7ba53;
+          border: none;
+          border-radius: 50%;
+          color: white;
+          width: 42px;
+          height: 42px;
+          cursor: pointer;
+          transition: background 200ms;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: jn-bounce 2s ease-in-out infinite;
+        }
+        .jn-scroll-btn svg {
+          width: 22px;
+          height: 22px;
+        }
+        .jn-scroll-btn:hover { background: #e5a843; }
+        @keyframes jn-bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(5px); }
+        }
+
 
         /* ── Mobile ── */
         @media (max-width: 640px) {
           .jn-hero-title-block { padding: 0 1.5em 3rem; }
           .jn-hero-place { font-size: clamp(2.5rem, 12vw, 4rem); }
           .jn-masthead,
-          .jn-body, .jn-intro, .jn-quote-wrap, .jn-chapter-wrap,
-          .jn-fin { padding-left: 1.4em; padding-right: 1.4em; }
-          .jn-quote-wrap { padding-left: 2em; }
+          .jn-body, .jn-intro, .jn-chapter-wrap,
+          .jn-fin-wrap { padding-left: 1.4em; padding-right: 1.4em; }
+          .jn-quote-wrap { padding-left: 1.8em; padding-right: 1.4em; }
           .jn-drop::first-letter { font-size: 3.5em; }
+          .jn-chapter-num { font-size: 1.6rem; }
+          .jn-scroll-btn { width: 36px; height: 36px; }
+          .jn-scroll-btn svg { width: 18px; height: 18px; }
         }
       `}</style>
     </div>
