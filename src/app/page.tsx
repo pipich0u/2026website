@@ -299,10 +299,9 @@ function MobileNav({
         {[
           { label: "HOME", href: "/" },
           { label: "HOLIDAYS", href: "#" },
-          { label: "TECHNOLOGY", href: "/technology" },
-          { label: "APPROACHING.AI", href: "#" },
-          { label: "OTHERS", href: "#" },
-          { label: "ABOUT.ME", href: "#" },
+          { label: "THOUGHTS", href: "/technology" },
+          { label: "TECHNOLOGY", href: "/approaching-ai" },
+          { label: "ABOUT ME", href: "#" },
         ].map((item, i) => (
             <li key={item.label} className="mobile-nav-item" style={i === 0 ? { borderTopWidth: 1 } : {}}>
               <a href={item.href} onClick={onClose}>{item.label}</a>
@@ -466,9 +465,9 @@ export default function HomePage() {
         <div className="ge-header-right">
           <nav className="ge-nav">
             <ul className="ge-menu">
-              {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "ABOUT.ME"].map((item) => (
+              {["HOME", "HOLIDAYS", "THOUGHTS", "TECHNOLOGY", "ABOUT ME"].map((item) => (
                 <li key={item} className="ge-menu-item">
-                  <a href={item === "HOME" ? "/" : item === "TECHNOLOGY" ? "/technology" : "#"}>{item}</a>
+                  <a href={item === "HOME" ? "/" : item === "THOUGHTS" ? "/technology" : item === "TECHNOLOGY" ? "/approaching-ai" : "#"}>{item}</a>
                 </li>
               ))}
             </ul>

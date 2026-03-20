@@ -5,10 +5,9 @@ import { useState } from "react";
 const navItems = [
   { label: "HOME", href: "/" },
   { label: "HOLIDAYS", href: "#" },
-  { label: "TECHNOLOGY", href: "/technology" },
-  { label: "APPROACHING.AI", href: "#" },
-  { label: "OTHERS", href: "#" },
-  { label: "ABOUT.ME", href: "#" },
+  { label: "THOUGHTS", href: "/technology" },
+  { label: "TECHNOLOGY", href: "/approaching-ai" },
+  { label: "ABOUT ME", href: "#" },
 ];
 
 export default function MobileNav() {

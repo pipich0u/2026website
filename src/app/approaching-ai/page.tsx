@@ -71,11 +71,11 @@ export default async function ApproachingAIPage() {
         <div className="ai-header-inner">
           <Link href="/" className="ai-logo">FANYAO&apos;STUDIO</Link>
           <nav className="ai-nav">
-            {["HOME", "HOLIDAYS", "TECHNOLOGY", "APPROACHING.AI", "OTHERS", "ABOUT.ME"].map((item) => (
+            {["HOME", "HOLIDAYS", "THOUGHTS", "TECHNOLOGY", "ABOUT ME"].map((item) => (
               <a
                 key={item}
-                href={item === "HOME" ? "/" : item === "TECHNOLOGY" ? "/technology" : item === "APPROACHING.AI" ? "/approaching-ai" : "#"}
-                className={`ai-nav-item ${item === "APPROACHING.AI" ? "active" : ""}`}
+                href={item === "HOME" ? "/" : item === "THOUGHTS" ? "/technology" : item === "TECHNOLOGY" ? "/approaching-ai" : "#"}
+                className={`ai-nav-item ${item === "TECHNOLOGY" ? "active" : ""}`}
               >
                 {item}
               </a>
