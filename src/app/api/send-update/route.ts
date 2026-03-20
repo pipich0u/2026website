@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "No subscribers" });
     }
 
-    const siteUrl = process.env.SITE_URL || "https://2026website-one.vercel.app";
+    const siteUrl = process.env.SITE_URL || "https://www.fanyao.live";
     const postUrl = post.slug ? `${siteUrl}/technology/${post.slug}` : siteUrl;
 
     const html = `

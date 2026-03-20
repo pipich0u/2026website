@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "No subscribers" });
     }
 
-    const siteUrl = process.env.SITE_URL || "https://2026website-one.vercel.app";
+    const siteUrl = process.env.SITE_URL || "https://www.fanyao.live";
     let totalSent = 0;
 
     for (const post of posts) {
