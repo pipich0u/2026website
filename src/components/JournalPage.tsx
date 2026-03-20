@@ -167,7 +167,7 @@ export default function JournalPage({
           {/* ── HERO: full-bleed photo ── */}
           <div className="jn-hero">
             <img
-              src={`${card.image}${ext}`}
+              src={`${card.image}.webp`}
               alt={card.subtitle}
               className="ge-detail-bg-img"
             />
