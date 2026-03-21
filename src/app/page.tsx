@@ -440,6 +440,13 @@ export default function HomePage() {
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mql.addEventListener("change", handler);
     const timer = setTimeout(() => setShowLoading(false), 800);
+
+    // Preload large images for smooth card expansion
+    cardData.forEach((card) => {
+      const img = new Image();
+      img.src = `${card.image}.webp`;
+    });
+
     return () => {
       clearTimeout(timer);
       mql.removeEventListener("change", handler);
